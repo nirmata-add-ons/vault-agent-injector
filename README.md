@@ -21,11 +21,11 @@ Once a new cluster is provisioned, Nirmata will automatically create the require
 
 ## Workload Authentication
 
-For each application that requests secrets from Vault, you will need to configure a role in Vault and map the role to a policy that allows access to one or more paths that contain the secrets for the application. See detaiils at: https://www.vaultproject.io/docs/auth/kubernetes.html#configuration.
+For each application that requests secrets from Vault, you will need to configure a role in Vault and map the role to a policy that allows access to one or more paths that contain the secrets for the application. Check the [Vault documentation](https://www.vaultproject.io/docs/auth/kubernetes.html#configuration) for additional details.
 
 ## Accessing Secrets
 
-You can now run workloads with annotations that will instruct the injector to add an init container, a side-car container, and secrets to Pods. The complete list of annotations is available at: https://www.vaultproject.io/docs/platform/k8s/injector/annotations
+You can now run workloads with annotations that will instruct the injector to add an init container, a side-car container, and secrets to Pods. The complete list of annotations is available in the [Vault documentation](https://www.vaultproject.io/docs/platform/k8s/injector/annotations).
 
 Here is an example of a Pod that access a secret. The application service account which maps to the Vault role should already exist, or must be created first:
 
