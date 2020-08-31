@@ -5,11 +5,11 @@ This repository contains YAML files and instructions for configuring the [Hashic
 ## Usage
 
 To configure the add-on, follow these steps:
-1. Clone this repository or add its contents to your own private Git repository. You can also change the AGENT_INJECT_VAULT_ADDR to contain the address of your Vault service (this can also be set in Nirmata.)
-2. Create a Nirmata catalog application with a Git upstream and select your repository. The name of the application must be set to **vault-agent-injector** so Nirmata can auto-configure the required settings.
-3. Edit the catalog application and select an add-on category.
-4. Update cluster types, or create new ones, and select the add-on.
-5. Create clusters using the cluster type.
+1. Clone this repository or add its contents to your own private Git repository. 
+3. Create a Nirmata catalog application with a Git upstream and select your repository. The name of the catalog application must be set to **vault-agent-injector** and the namespace must be set to **vault-agent-injector** so to auto-configure the required settings.
+4. Edit the catalog application and select an add-on category (e.g. security). This is required to select the application as a add-on.
+5. Update cluster types, or create new ones, and select the add-on application.
+6. Create clusters using the cluster type.
 
 **Note:** if you select the stable channel, make sure you have a release available to deploy to the cluster. 
 
@@ -17,7 +17,7 @@ To configure the add-on, follow these steps:
 
 The Vault Agent Injector requires the Vault Kubernetes authentication method which uses Kubernetes RBAC and security to authenticate workloads. This auth method requires each Kubernetes cluster to have its own path in Vault. 
 
-Once a new cluster is provisioned, Nirmata will automatically create the required configuration for Vault. Simply click on the add-on entry and follow the configuration steps to complete Vault setup.
+Once a new cluster is provisioned, Nirmata will automatically create the required configuration for Vault like the token reviewer role and its JWT token. Simply click on the add-on entry to get the information required to set up the Vault Kubernetes authentication path. Then, set the Vault address and the Kubernetes authentication path. 
 
 ## Workload Authentication
 
