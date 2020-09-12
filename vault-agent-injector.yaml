@@ -86,7 +86,7 @@ spec:
             - name: AGENT_INJECT_VAULT_ADDR
               value: https://vault-devtest2.nirmata.io
             - name: AGENT_INJECT_VAULT_AUTH_PATH
-              value: auth/kubernetes/$(cluster.name)              
+              value: "auth/kubernetes/$(cluster.name)"              
             - name: AGENT_INJECT_VAULT_IMAGE
               value: "vault:1.5.2"
             - name: AGENT_INJECT_TLS_AUTO
