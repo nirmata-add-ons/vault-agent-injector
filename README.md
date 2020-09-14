@@ -8,14 +8,14 @@ To configure the Vault Injector add-on, follow these steps:
 1. Clone this repository or add its contents to your own private Git repository. 
 3. Create a Nirmata catalog application with a Git upstream and select the Vault Agent Injector repository.
 4. Edit the catalog application and select an add-on category (e.g. security). This is required to select the application as a add-on.
-5. Create a Vault Credentials (Settings -> Integrations -> Vault). This requires a Vault address and a token for Nirmata. The token must be configured with an [access policy](#vault-configuration-for-nirmata-access) that allows Nirmata to configure Kubernetes authentication paths. 
-5. Update a cluster type, or create a new one, and select the Vault Injector add-on application in the "Add-Ons" section.
-6. In the cluster type setting also configure the Vault Auth Settings section. Select the Vault Credentials. For the "Kubernetes Authentication Path" you can use `$(cluster.name)` to create a path with the cluster name. For example, `kubernetes/$(cluster.name)`. Also, enter the Vault Injector add-on application name. Nirmata will now watch for that application to be deployed and automatically configure the Vault Kubernetes Authentication path for new clusters with the default roles roles.
+5. Create a Vault Credentials (Settings -> Integrations -> Vault). This requires a Vault address and a token for Nirmata. The token must be configured with an [access policy](#vault-configuration-for-nirmata-access) that allows Nirmata to configure Kubernetes authentication paths. See details below in the **Vault Configuration for Nirmata Access** section. 
+5. Update a Cluster Type, or create a new one, and select the Vault Agent Injector add-on application in the "Add-Ons" section.
+6. In the Cluster Type setting also configure the Vault Auth Settings section. Select the Vault Credentials. For the "Kubernetes Authentication Path" you can use `$(cluster.name)` to create a path with the cluster name. For example, `kubernetes/$(cluster.name)`. Also, enter the Vault Injector add-on application name. Nirmata will now watch for that application to be deployed and automatically configure the Vault Kubernetes Authentication path for new clusters with the default roles roles.
 6. Create clusters using the cluster type.
 7. Verify that the Kubernetes Authentication Path is created in Vault and has the correct roles.
-8. Deploy applications that use the standard 
+8. Deploy applications that use the standard [Vault Agent Injector annotations](https://www.vaultproject.io/docs/platform/k8s/injector/annotations). 
 
-**Note:** if you select the stable channel, make sure you have a release available to deploy to the cluster. 
+**Note:** if you select the stable channel, make sure you have a release available in that channel to deploy to the cluster. 
 
 ## Vault Configuration for Nirmata Access
 
