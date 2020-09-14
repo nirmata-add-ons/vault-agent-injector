@@ -6,11 +6,14 @@ This repository contains YAML files and instructions for configuring the [Hashic
 
 To configure the Vault Injector add-on, follow these steps:
 1. Clone this repository or add its contents to your own private Git repository. 
-3. Create a Nirmata catalog application with a Git upstream and select your repository. The name of the catalog application.
+3. Create a Nirmata catalog application with a Git upstream and select the Vault Agent Injector repository.
 4. Edit the catalog application and select an add-on category (e.g. security). This is required to select the application as a add-on.
-5. Update cluster types, or create new ones, and select the add-on application.
-6. In the cluster type setting configure the Vault Kubernetes Auth Settings section and enter the add-on application name. Nirmata will watch for that application to be deployed and automatically configure the Vault Kubernetes Authentication path for the cluster and add the default roles roles.
+5. Create a Vault Credentials (Settings -> Integrations -> Vault). This requires a Vault address and a token for Nirmata. The token must be configured with an [access policy](#vault-configuration-for-nirmata-access) that allows Nirmata to configure Kubernetes authentication paths. 
+5. Update a cluster type, or create a new one, and select the Vault Injector add-on application in the "Add-Ons" section.
+6. In the cluster type setting also configure the Vault Auth Settings section. Select the Vault Credentials. For the "Kubernetes Authentication Path" you can use `$(cluster.name)` to create a path with the cluster name. For example, `kubernetes/$(cluster.name)`. Also, enter the Vault Injector add-on application name. Nirmata will now watch for that application to be deployed and automatically configure the Vault Kubernetes Authentication path for new clusters with the default roles roles.
 6. Create clusters using the cluster type.
+7. Verify that the Kubernetes Authentication Path is created in Vault and has the correct roles.
+8. Deploy applications that use the standard 
 
 **Note:** if you select the stable channel, make sure you have a release available to deploy to the cluster. 
 
