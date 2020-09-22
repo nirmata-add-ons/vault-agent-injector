@@ -84,7 +84,7 @@ spec:
             - name: AGENT_INJECT_LOG_LEVEL
               value: info
             - name: AGENT_INJECT_VAULT_ADDR
-              value: https://vault-devtest2.nirmata.io
+              value: http://vault.default.svc:8200
             - name: AGENT_INJECT_VAULT_AUTH_PATH
               value: "auth/kubernetes/$(cluster.name)"              
             - name: AGENT_INJECT_VAULT_IMAGE

@@ -1,0 +1,5 @@
+resources:
+- vault-agent-injector.yaml
+patchesStrategicMerge:
+  - patches/vault-address.yaml
+  - patches/kubernetes-auth-path.yaml
