@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault-agent-injector
+spec:
+  template:
+    spec:
+      containers:
+        - name: sidecar-injector
+          env:
+            - name: AGENT_INJECT_VAULT_AUTH_PATH
+              value: "auth/nirmata/$(cluster.name)"

@@ -14,6 +14,24 @@ To configure the Vault Injector add-on, follow these steps:
 
 **Note:** if you select the stable channel, make sure you have a release available to deploy to the cluster. 
 
+## Customizing the Vault Agent Injector YAML
+
+You can use [kustomize](https://kubernetes-sigs.github.io/kustomize/) to change configuration settings for the Vault Agent Injector. A sample [kustomization.yaml](kustomization.yaml) file with patches to update the `AGENT_INJECT_VAULT_ADDR` and `AGENT_INJECT_VAULT_AUTH_PATH` is provided in the repository.
+
+You can clone the `nirmata-add-ons/vault-agent-injector` repository and run `kustomize` as follows:
+
+```
+git clone github.com/nirmata-add-ons/vault-agent-injector
+cd vault-agent-injector
+kubectl kustomize ./
+```
+
+Or, to simply run the kustomization without cloning use: 
+
+```
+kubectl kustomize github.com/nirmata-add-ons/vault-agent-injector
+```
+
 ## Vault Configuration for Nirmata Access
 
 To manage a cluster's Kubernetes Auth path in Vault, Nirmata needs access permissions to enable and configure Kubernetes Auth paths. 
