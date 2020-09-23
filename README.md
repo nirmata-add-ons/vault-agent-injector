@@ -6,7 +6,7 @@ This repository contains YAML files and instructions for configuring the [Hashic
 
 To configure the Vault Injector add-on, follow these steps:
 1. Clone this repository or add its contents to your own private Git repository. 
-3. Create a Nirmata catalog application with a Git upstream and select the Vault Agent Injector repository.
+3. Create a Nirmata catalog application with a Git upstream and select the Vault Agent Injector repository. You can optionally select the kustomization (see below.)
 4. Edit the catalog application and select an add-on category (e.g. security). This is required to select the application as a add-on.
 5. Create a Vault Credentials (Settings -> Integrations -> Vault). This requires a Vault address and a token for Nirmata. The token must be configured with an [access policy](#vault-configuration-for-nirmata-access) that allows Nirmata to configure Kubernetes authentication paths. See details below in the **Vault Configuration for Nirmata Access** section. 
 5. Update a Cluster Type, or create a new one, and select the Vault Agent Injector add-on application in the "Add-Ons" section.
@@ -44,20 +44,33 @@ Here is an sample HCL policy that provides Nirmata with permissions to create an
 ```
 # Policy for Nirmata to manage Kubernetes Authentication methods
 
-# Mount the Kubernetes auth method
-path "sys/auth/*" {
+# allow creation of Kubernetes auth methods in a specific path
+path "sys/auth/nirmata/*" {
   capabilities = [ "create", "read", "update", "delete", "sudo" ]
   allowed_parameters = {
-    "type" = ["kubernetes"]
-    "path" = ["kubernetes/*"]
-    "*"   = []
+    "type" = ["kubernetes"]    
+    "*"    = []
   }
 }
 
-# Configure Kubernetes auth method roles
-path "auth/kubernetes/*" {
+# allow configuring Kubernetes auth methods in a specific path
+path "auth/nirmata/+/config" {
   capabilities = [ "create", "read", "update", "delete", "list" ]
 }
+
+# allow adding roles to a specific auth path with an allowed list of policies
+path "auth/nirmata/+/role/+" {
+  capabilities = [ "create", "read", "update", "delete", "list" ]
+  allowed_parameters = {
+    "token_policies" = [["app-policy1"], ["app-policy2"]]
+    "*"    = []
+  }
+  denied_parameters = {
+    "token_policies" = [ ["root"], ["default"] ]
+    "token_no_default_policy" = ["true"]
+  }
+}
+
 ```
 
 This policy must be mapped to the AppRole or access token used by Nirmata to access Vault.
