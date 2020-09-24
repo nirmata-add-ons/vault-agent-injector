@@ -39,7 +39,7 @@ kubectl kustomize github.com/nirmata-add-ons/vault-agent-injector
 
 To manage a cluster's Kubernetes Auth path in Vault, Nirmata needs access permissions to enable and configure Kubernetes Auth paths. 
 
-Here is an sample HCL policy that provides Nirmata with permissions to create and configure Kubernetes Auth methods for clusters:
+Here is an sample HCL policy that provides Nirmata with permissions to create and configure Kubernetes Auth methods for clusters and limits which policies can be used:
 
 ```
 # Policy for Nirmata to manage Kubernetes Authentication methods
@@ -58,18 +58,20 @@ path "auth/nirmata/+/config" {
   capabilities = [ "create", "read", "update", "delete", "list" ]
 }
 
-# allow adding roles to a specific auth path with an allowed list of policies
-path "auth/nirmata/+/role/+" {
+# allow adding roles to a specific auth path with specified policies
+path "auth/nirmata/+/role/*" {
   capabilities = [ "create", "read", "update", "delete", "list" ]
   allowed_parameters = {
-    "token_policies" = [["app-policy1"], ["app-policy2"]]
+    # allows roles to use app-policy1, app-policy2, or both
+    "policies" = [ ["app-policy1"], ["app-policy2"], ["app-policy1", "app-policy2"] ]
     "*"    = []
   }
   denied_parameters = {
-    "token_policies" = [ ["root"], ["default"] ]
+    "token_policies" = []
     "token_no_default_policy" = ["true"]
   }
 }
+
 
 ```
 
