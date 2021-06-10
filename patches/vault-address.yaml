@@ -9,5 +9,5 @@ spec:
         - name: sidecar-injector
           env:
             - name: AGENT_INJECT_VAULT_ADDR
-              value: https://vault-server:8200
+              value: https://vault.lab.nirmata.co:8200
 
